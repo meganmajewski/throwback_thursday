@@ -1,26 +1,15 @@
-
-# Local development
-*.env
-*.dev
-.DS_Store
-.vscode/
-
-# Docker
-Dockerfile
-docker-compose.yml
-
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-ui/node_modules
-node_modules
+/node_modules
+/.pnp
+.pnp.js
 
 # testing
 /coverage
 
 # production
-ui/build
+/build
 
 # misc
 .DS_Store
