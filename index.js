@@ -4,9 +4,8 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
   connectionString:
-    process.env.DATABASE_URL ||
-    "postgres://mmajews2:419Terry!@localhost:5432/localdb",
-  ssl: true
+    process.env.DATABASE_URL,
+    ssl: true
 });
 express()
   .use(express.static(path.join(__dirname, "ui/build")))

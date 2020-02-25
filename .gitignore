@@ -19,8 +19,6 @@ node_modules
 # testing
 /coverage
 
-# production
-ui/build
 
 # misc
 .DS_Store
