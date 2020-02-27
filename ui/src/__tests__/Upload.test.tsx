@@ -11,13 +11,6 @@ describe("UploadImage", () => {
   afterEach(() => {
     mockUploadImage.mockReset();
   });
-
-  it("should call axious on submit", () => {
-    const { getByText } = render(<Upload />);
-    fireEvent.click(getByText(/submit/i));
-    expect(mockUploadImage).toHaveBeenCalled();
-  });
-
   it("can select an image and upload will make a request to upload it", async () => {
     const { container, getByTestId, getByText, getByAltText } = render(
       <Upload />
@@ -26,8 +19,16 @@ describe("UploadImage", () => {
     const imageInput = getByTestId("upload-image");
     Simulate.change(imageInput, { target: { files: [file] } as any });
 
+    const formData = new FormData();
+    formData.append("image", file);
+
     fireEvent.click(getByText(/submit/i));
     expect(mockUploadImage).toHaveBeenCalledTimes(1);
-    expect(mockUploadImage).toHaveBeenCalledWith({ data: file });
+    expect(mockUploadImage).toHaveBeenCalledWith({
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
   });
 });

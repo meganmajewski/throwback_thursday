@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors");
+const upload = require("multer");
 const { Pool } = require("pg");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
@@ -7,13 +9,13 @@ const pool = new Pool({
   ssl: true
 });
 express()
+  .use(cors())
   .use(express.static(path.join(__dirname, "ui/build")))
-
   .get("/", (req, res) =>
     res.sendFile(path.join(__dirname, "ui/build/index.html"))
   )
-  .post("/uploadImage", (req, res) => {
-    console.log(req.body);
+  .post("/uploadImage", upload().single("image"), (req, res) => {
+    console.log(req.file);
     res.send("Success");
   })
   .get("/db", async (req, res) => {

@@ -1,31 +1,41 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import useAxios from "axios-hooks";
-import axios from "axios";
 
 export default function Upload() {
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
-  const [{ data, loading, error }, uploadImage] = useAxios({
-    url: "/uploadImage",
-    method: "post"
-  });
+  const [{ data, loading, error }, uploadImage] = useAxios(
+    {
+      baseURL: "http://localhost:5000",
+      url: "/uploadImage",
+      method: "post"
+    },
+    { manual: true }
+  );
 
-  function submit(e: FormEvent<HTMLFormElement>) {
+  const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    uploadImage({
-      data: imageToUpload
-    });
-  }
+    if (imageToUpload) {
+      const formData = new FormData();
+      formData.append("image", imageToUpload);
+      console.log("Image", formData);
+      uploadImage({
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+    }
+  };
 
-  function getImageForUpload({
+  const getImageForUpload = ({
     target: { files }
-  }: ChangeEvent<HTMLInputElement>) {
+  }: ChangeEvent<HTMLInputElement>) => {
     if (files && files?.length > 1) {
       console.log("too many images selected");
     } else if (files) {
-      // axios.post("/uploadImage");
       setImageToUpload(files[0]);
     }
-  }
+  };
 
   return (
     <div>
