@@ -1,73 +1,58 @@
-import express from "express";
-import cors from "cors";
-import upload from "multer";
-import firebase from "firebase";
-import "@firebase/storage"; //needed for initialization
-import XMLHttpRequest from "xmlhttprequest";
-global.XMLHttpRequest = XMLHttpRequest.XMLHttpRequest;
-import Pool from "pg";
-import path from "path";
-
-const FILENAME =
-  typeof __filename !== "undefined"
-    ? __filename
-    : (/^ +at (?:file:\/*(?=\/)|)(.*?):\d+:\d+$/m.exec(Error().stack) || "")[1];
-const DIRNAME =
-  typeof __dirname !== "undefined"
-    ? __dirname
-    : FILENAME.replace(/[\/\\].*?$/, "");
-
+global.XMLHttpRequest = require("xhr2");
+const express = require("express");
+const cors = require("cors");
+const upload = require("multer");
+const firebase = require("firebase");
+require("firebase/storage");
+const { Pool } = require("pg");
+const path = require("path");
 const PORT = process.env.PORT || 5000;
-const pool = new Pool.Pool({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
-let storage;
-const initFirebase = () => {
-  var firebaseConfig = {
-    apiKey: "AIzaSyAHjWMqYnREX0BjrPZc1GpniN3ykSNuPpg",
-    authDomain: "throwback-thursday-15e79.firebaseapp.com",
-    databaseURL: "https://throwback-thursday-15e79.firebaseio.com",
-    projectId: "throwback-thursday-15e79",
-    storageBucket: "throwback-thursday-15e79.appspot.com",
-    messagingSenderId: "740383031846",
-    appId: "1:740383031846:web:1ff2742fa5d7eb5b6bdce7"
-  };
-  firebase.initializeApp(firebaseConfig);
 
-  storage = firebase.storage();
+const firebaseConfig = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DB_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: "throwback-thursday-b1cf0.appspot.com",
+  messagingSenderId: process.env.SENDER_ID,
+  appId: process.env.APP_ID
 };
-initFirebase();
 
+firebase.initializeApp(firebaseConfig);
+
+function uploadToFirebase(file) {
+  const storageRefForImage = firebase
+    .storage()
+    .ref()
+    .child("images/" + file.originalname);
+
+  storageRefForImage.put(Uint8Array.from(file.buffer)).then(
+    snapshot => {
+      return snapshot.ref.getDownloadURL();
+    },
+    error => {
+      throw new Error("Error uploading image with error", error);
+    }
+  );
+}
 express()
   .use(cors())
-  .use(express.static(path.join(DIRNAME, "ui/build")))
+  .use(express.static(path.join(__dirname, "ui/build")))
   .get("/", (req, res) =>
-    res.sendFile(path.join(DIRNAME, "ui/build/index.html"))
+    res.sendFile(path.join(__dirname, "ui/build/index.html"))
   )
   .post("/uploadImage", upload().single("image"), (req, res) => {
     try {
-      console.log("file", req.file);
-      const storageRef = storage.ref();
-      const imageRef = storageRef.child("images/file.png");
-      const fileArray = new Uint8Array(req.file.buffer);
-      console.log("filearray", fileArray);
-      imageRef
-        .put(fileArray)
-        .then(
-          snapshot => {
-            console.log("hello world", snapshot.downloadURL);
-            return snapshot.downloadURL;
-          },
-          error => {
-            console.log("error", error);
-          }
-        )
-        .catch(url => {
-          console.log("url", url);
-        });
-    } catch (err) {
-      console.log("err", err);
+      const storedImageURL = uploadToFirebase(req.file);
+      console.log(storedImageURL);
+    } catch (e) {
+      console.log(e);
+      res.status(500);
+      res.send("Failure");
     }
     res.send("Success");
   })
@@ -79,8 +64,8 @@ express()
       res.json(results);
       client.release();
     } catch (err) {
-      console.log("error getting db", err);
+      console.log(err);
       res.send("Error" + err);
     }
   })
-  .listen(PORT, () => console.log(`Listening on this port: ${PORT}`));
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
