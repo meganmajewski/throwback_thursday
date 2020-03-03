@@ -14,6 +14,7 @@ docker-compose.yml
 
 # dependencies
 ui/node_modules
+ui/build
 node_modules
 
 # testing
