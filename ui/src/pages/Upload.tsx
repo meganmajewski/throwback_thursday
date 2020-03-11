@@ -17,12 +17,13 @@ export default function Upload() {
     if (imageToUpload) {
       const formData = new FormData();
       formData.append("image", imageToUpload);
-      console.log("Image", formData);
       uploadImage({
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data"
         }
+      }).catch(error => {
+        console.log("Error Uploading Image: ", e);
       });
     }
   };
@@ -36,6 +37,10 @@ export default function Upload() {
       setImageToUpload(files[0]);
     }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+  if (data) return <p> Thanks for submitting your image!</p>;
 
   return (
     <div>

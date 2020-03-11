@@ -23,7 +23,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
 function uploadToFirebase(file) {
   const storageRefForImage = firebase
     .storage()
@@ -31,11 +30,12 @@ function uploadToFirebase(file) {
     .child("images/" + file.originalname);
 
   storageRefForImage.put(Uint8Array.from(file.buffer)).then(
-    snapshot => {
-      return snapshot.ref.getDownloadURL();
+    async snapshot => {
+      //not sure what to do here on success?
+      downloadURL = await snapshot.ref.getDownloadURL();
     },
     error => {
-      throw new Error("Error uploading image with error", error);
+      throw ("Error uploading file", error);
     }
   );
 }
@@ -47,14 +47,13 @@ express()
   )
   .post("/uploadImage", upload().single("image"), (req, res) => {
     try {
-      const storedImageURL = uploadToFirebase(req.file);
-      console.log(storedImageURL);
+      uploadToFirebase(req.file);
+      res.send("Image uploaded");
     } catch (e) {
       console.log(e);
-      res.status(500);
+      res.statusCode(500);
       res.send("Failure");
     }
-    res.send("Success");
   })
   .get("/db", async (req, res) => {
     try {
