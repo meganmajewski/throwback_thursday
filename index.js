@@ -56,7 +56,7 @@ express()
   .use(cors())
   .use(express.static(path.join(__dirname, "ui/build/")))
   .get("/", (req, res) =>
-    res.sendFile(path.join(__dirname, "ui/build/index.html"))
+    res.sendFile(path.join(__dirname, "ui/build", "index.html"))
   )
   .get("/allImages", async (_, res) => {
     try {
