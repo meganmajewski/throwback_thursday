@@ -23,7 +23,7 @@ export default function Upload() {
           "Content-Type": "multipart/form-data"
         }
       }).catch(error => {
-        console.log("Error Uploading Image: ", e);
+        console.log("Error Uploading Image: ", error);
       });
     }
   };

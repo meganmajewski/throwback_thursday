@@ -2,7 +2,7 @@ import React from "react";
 import useAxios from "axios-hooks";
 
 export default function Gallery() {
-  const [{ data, loading, error }, uploadImage] = useAxios({
+  const [{ data, loading, error }] = useAxios({
     baseURL: "http://localhost:5000",
     url: "/allImages",
     method: "get"
