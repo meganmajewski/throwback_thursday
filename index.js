@@ -73,7 +73,7 @@ express()
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
       const url = await uploadToFirebase(req.file);
-      // uploadImageURLToDb(url);
+      uploadImageURLToDb(url);
       res.send("Image uploaded");
     } catch (e) {
       console.log(e);
