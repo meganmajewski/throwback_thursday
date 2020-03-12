@@ -42,10 +42,9 @@ async function uploadImageURLToDb(url) {
   try {
     const client = await pool.connect();
     client.query(
-      "INSERT INTO test_table(name) VALUES(4,'" + url + "')",
+      "INSERT INTO test_table(name) VALUES(" + url + ")",
       (err, res) => {
         console.log("error uploading to db ", err, res);
-        pool.end();
       }
     );
   } catch (e) {
