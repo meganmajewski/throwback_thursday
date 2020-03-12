@@ -8,7 +8,7 @@ const { Pool } = require("pg");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL + "sslmode=require",
+  connectionString: process.env.DATABASE_URL,
   ssl: true
 });
 
@@ -73,7 +73,7 @@ express()
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
       const url = await uploadToFirebase(req.file);
-      uploadImageURLToDb(url);
+      // uploadImageURLToDb(url);
       res.send("Image uploaded");
     } catch (e) {
       console.log(e);
