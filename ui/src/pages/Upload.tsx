@@ -5,7 +5,6 @@ export default function Upload() {
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
   const [{ data, loading, error }, uploadImage] = useAxios(
     {
-      baseURL: process.env.SERVER_URL || "http://localhost:5000",
       url: "/uploadImage",
       method: "post"
     },
