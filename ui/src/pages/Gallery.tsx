@@ -8,9 +8,8 @@ export default function Gallery() {
   });
 
   const printAllImages = () => {
-    console.log("data", data);
-    return data.map((src: string, key: string) => {
-      return <img key={key} src={src}></img>;
+    return data.results.map((src: { id: string; url: string }) => {
+      return <img src={src.url}></img>;
     });
   };
   if (loading) return <p>Loading...</p>;
@@ -22,6 +21,4 @@ export default function Gallery() {
         Thanks for submitting your image! {JSON.stringify(data)}
       </div>
     );
-
-  // return <div>everything returned {JSON.stringify(data)}</div>;
 }
