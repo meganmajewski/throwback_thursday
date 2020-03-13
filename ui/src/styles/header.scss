@@ -1,12 +1,32 @@
+@import "colors.scss";
 header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+
+#logo {
+  max-width: 200px;
+}
+
 ul {
-    display: flex;
-    align-self: center;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  flex: 0 1 300px;
+}
+
+.nav-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $text-gray;
+  padding-bottom: 8px;
+  &.active {
+    border-bottom: 5px solid #0073a3;
+  }
 }
 li {
-    list-style-type: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  list-style-type: none;
 }

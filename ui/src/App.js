@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import Header from "./components/Header";
 import Gallery from "./pages/Gallery";
 import Upload from "./pages/Upload";
@@ -8,15 +8,19 @@ import Upload from "./pages/Upload";
 function App() {
   return (
     <Router>
-      <Header />
-      <Switch>
-        <Route path="/gallery">
-          <Gallery />
-        </Route>
-        <Route path="/upload">
-          <Upload />
-        </Route>
-      </Switch>
+      <div id="main">
+        <Header />
+        <div className="content-container">
+          <Switch>
+            <Route path="/gallery">
+              <Gallery />
+            </Route>
+            <Route path="/upload">
+              <Upload />
+            </Route>
+          </Switch>
+        </div>
+      </div>
     </Router>
   );
 }

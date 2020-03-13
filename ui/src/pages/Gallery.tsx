@@ -22,7 +22,6 @@ export default function Gallery() {
   if (data)
     return (
       <div className="image-container">
-        Thanks for submitting your image!
         <div className="image-grid">{printAllImages()}</div>
       </div>
     );
