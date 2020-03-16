@@ -1,0 +1,24 @@
+@import "base.scss";
+body.vote {
+  background-color: $background-blue;
+  background-image: url("../images/vote.png");
+}
+div {
+  text-align: center;
+}
+
+.form-container {
+  background-color: $light-blue;
+  padding: 40px;
+  margin-bottom: 50px;
+
+  h2 {
+    margin: 0 0 30px 0;
+  }
+  .cdsid-input {
+    margin-right: 30px;
+  }
+}
+.image {
+  box-shadow: 10px 10px $text-gray;
+}
