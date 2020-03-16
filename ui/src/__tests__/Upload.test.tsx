@@ -19,7 +19,10 @@ describe("UploadImage", () => {
     const imageInput = getByTestId("upload-image");
     Simulate.change(imageInput, { target: { files: [file] } as any });
 
+    const cdsidInput = getByTestId("cdsid");
+    Simulate.change(cdsidInput, { target: { value: "mmajews2" } as any });
     const formData = new FormData();
+    formData.append("cdsid", "mmajews2");
     formData.append("image", file);
 
     fireEvent.click(getByText(/submit/i));

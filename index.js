@@ -40,11 +40,15 @@ async function uploadToFirebase(file) {
     Promise.reject("error uploading to firebase", e);
   }
 }
-async function uploadImageURLToDb(url) {
+async function uploadToDb(url, cdsid) {
   try {
     const client = await pool.connect();
     client.query(
-      "INSERT INTO test_table(url) VALUES('" + url + "')",
+      "INSERT INTO test_table(url, cdsid) VALUES('" +
+        url +
+        "', '" +
+        cdsid +
+        "')",
       (err, res) => {
         console.log("error uploading to db ", err, res);
       }
@@ -74,7 +78,7 @@ express()
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
       const url = await uploadToFirebase(req.file);
-      uploadImageURLToDb(url);
+      uploadToDb(url, req.body.cdsid);
       res.send("Image uploaded");
     } catch (e) {
       console.log(e);

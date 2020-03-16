@@ -11,9 +11,11 @@ export default function Gallery() {
   const printAllImages = () => {
     return data.results.map((src: { id: string; url: string }) => {
       return (
-        <div className="image">
-          <img src={src.url}></img>
-        </div>
+        src.url && (
+          <div className="image">
+            <img src={src.url}></img>
+          </div>
+        )
       );
     });
   };

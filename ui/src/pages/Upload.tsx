@@ -3,6 +3,7 @@ import useAxios from "axios-hooks";
 
 export default function Upload() {
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
+  const [cdsid, setCDSID] = useState<string>("");
   const [{ data, loading, error }, uploadImage] = useAxios(
     {
       url: "/uploadImage",
@@ -15,6 +16,7 @@ export default function Upload() {
     e.preventDefault();
     if (imageToUpload) {
       const formData = new FormData();
+      formData.append("cdsid", cdsid);
       formData.append("image", imageToUpload);
       uploadImage({
         data: formData,
@@ -52,6 +54,14 @@ export default function Upload() {
           required
         ></input>
         <label>Upload your best baby picture</label>
+        <label>Add your CDSID</label>
+        <input
+          data-testid="cdsid"
+          type="text"
+          name="cdsid"
+          maxLength={8}
+          onChange={({ target: { value } }) => setCDSID(value)}
+        ></input>
         <input type="submit" alt="submit" value="Submit"></input>
       </form>
     </div>
