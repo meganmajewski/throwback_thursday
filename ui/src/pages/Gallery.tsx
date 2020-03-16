@@ -3,6 +3,8 @@ import useAxios from "axios-hooks";
 import "../styles/gallery.scss";
 
 export default function Gallery() {
+  document.body.classList.remove("vote");
+  document.body.classList.add("gallery");
   const [{ data, loading, error }] = useAxios({
     url: "/allImages",
     method: "get"
