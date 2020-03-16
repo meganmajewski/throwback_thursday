@@ -57,6 +57,7 @@ export default function Upload() {
         <label>Add your CDSID</label>
         <input
           data-testid="cdsid"
+          required
           type="text"
           name="cdsid"
           maxLength={8}

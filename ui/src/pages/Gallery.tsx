@@ -9,15 +9,28 @@ export default function Gallery() {
   });
 
   const printAllImages = () => {
-    return data.results.map((src: { id: string; url: string }) => {
-      return (
-        src.url && (
-          <div className="image">
-            <img src={src.url}></img>
-          </div>
-        )
-      );
-    });
+    return data.results.map(
+      (
+        src: { id: string; url: string; revealed: boolean; cdsid: string },
+        index: string
+      ) => {
+        return (
+          src.url && (
+            <div
+              className={src.revealed ? "image revealed" : "image not-revealed"}
+              key={index}
+            >
+              {src.revealed && (
+                <div className="cdsid-container">
+                  <span className="cdsid">{src.cdsid}</span>
+                </div>
+              )}
+              <img src={src.url}></img>
+            </div>
+          )
+        );
+      }
+    );
   };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
