@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header";
 import Gallery from "./pages/Gallery";
+import Vote from "./pages/Vote";
 import Upload from "./pages/Upload";
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
           <Switch>
             <Route path="/gallery">
               <Gallery />
+            </Route>
+            <Route path="/vote">
+              <Vote />
             </Route>
             <Route path="/upload">
               <Upload />

@@ -88,6 +88,20 @@ express()
       res.send("Failure");
     }
   })
+  .get("/currentImage", async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query(
+        "SELECT url  FROM test_table WHERE currentImage=true"
+      );
+      const results = { results: result ? result.rows : null };
+      res.json(results);
+      client.release();
+    } catch (err) {
+      console.log(err);
+      res.send("Error" + err);
+    }
+  })
   .get("/db", async (req, res) => {
     try {
       const client = await pool.connect();

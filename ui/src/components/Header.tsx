@@ -15,7 +15,11 @@ export default function Header() {
             Gallery
           </NavLink>
         </li>
-        <li>Vote</li>
+        <li>
+          <NavLink activeClassName="active" className="nav-link" to="/vote">
+            vote
+          </NavLink>
+        </li>
         <li>
           <NavLink activeClassName="active" className="nav-link" to="/upload">
             Upload

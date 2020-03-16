@@ -1,5 +1,5 @@
 import React, { FormEvent } from "react";
-import { render, fireEvent, getByTestId, wait } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Upload from "../pages/Upload";
 import { Simulate } from "react-dom/test-utils";
 
