@@ -9,8 +9,8 @@ import Upload from "./pages/Upload";
 function App() {
   return (
     <Router>
+      <Header />
       <div id="main">
-        <Header />
         <div className="content-container">
           <Switch>
             <Route path="/gallery">

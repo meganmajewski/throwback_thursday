@@ -1,8 +1,4 @@
 @import "base.scss";
-body.vote {
-  background-color: $background-blue;
-  background-image: url("../images/vote.png");
-}
 div {
   text-align: center;
 }
@@ -21,4 +17,5 @@ div {
 }
 .image {
   box-shadow: 10px 10px $text-gray;
+  max-width: 400px;
 }

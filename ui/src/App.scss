@@ -1,12 +1,29 @@
-@import "./styles/colors.scss";
+@import "./styles/base.scss";
+body {
+  background-color: $background-blue;
+}
+html,
+body {
+  height: 100%;
+}
+#root {
+  height: 100%;
+  overflow: hidden;
+}
 #main {
-  padding: 30px;
+  padding: 0 30px;
+  height: 100%;
   font-size: 1rem;
   color: $text-gray;
+}
+.gallery #main {
+  background-image: url("./images/gallery.png");
+}
+.vote #main {
+  background-image: url("./images/vote.png");
 }
 
 .content-container {
   max-width: 1440px;
-  padding-top: 40px;
   margin: auto;
 }
