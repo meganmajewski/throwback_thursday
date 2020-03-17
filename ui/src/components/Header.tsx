@@ -11,15 +11,16 @@ export default function Header() {
       </Link>
       <ul>
         <li>
+          <NavLink activeClassName="active" className="nav-link" exact to="/">
+            vote
+          </NavLink>
+        </li>
+        <li>
           <NavLink activeClassName="active" className="nav-link" to="/gallery">
             Gallery
           </NavLink>
         </li>
-        <li>
-          <NavLink activeClassName="active" className="nav-link" to="/vote">
-            vote
-          </NavLink>
-        </li>
+
         <li>
           <NavLink activeClassName="active" className="nav-link" to="/upload">
             Upload

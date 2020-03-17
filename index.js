@@ -6,6 +6,8 @@ const firebase = require("firebase");
 require("firebase/storage");
 const { Pool } = require("pg");
 const path = require("path");
+const bodyParser = require("body-parser");
+const textParser = bodyParser.text();
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
   connectionString:
@@ -88,7 +90,7 @@ express()
       res.send("Failure");
     }
   })
-  .get("/currentImage", async (req, res) => {
+  .get("/currentImage", async (_, res) => {
     try {
       const client = await pool.connect();
       const result = await client.query(
@@ -101,6 +103,25 @@ express()
       console.log(err);
       res.send("Error" + err);
     }
+  })
+  .post("/vote", textParser, async (req, res) => {
+    const client = await pool.connect();
+    //get current throwback id
+    const result = await client.query(
+      "SELECT current_id  FROM current_throwback"
+    );
+    const { current_id } = result.rows[0];
+    console.log(req.body);
+    //submit to db vote with that id
+    const vote = await client.query(
+      "INSERT INTO votes(image_id, vote) values(" +
+        current_id +
+        ",'" +
+        req.body +
+        "')"
+    );
+    client.release();
+    res.send("voted");
   })
   .get("/db", async (req, res) => {
     try {

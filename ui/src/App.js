@@ -16,11 +16,11 @@ function App() {
             <Route path="/gallery">
               <Gallery />
             </Route>
-            <Route path="/vote">
-              <Vote />
-            </Route>
             <Route path="/upload">
               <Upload />
+            </Route>
+            <Route path="/">
+              <Vote />
             </Route>
           </Switch>
         </div>

@@ -1,16 +1,13 @@
-import React, { FormEvent } from "react";
-import {
-  render,
-  fireEvent,
-  getByTestId,
-  wait,
-  getAllByTestId
-} from "@testing-library/react";
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
 import Vote from "../pages/Vote";
+import { Simulate } from "react-dom/test-utils";
 
-const mockVote = jest.fn().mockImplementationOnce(() => Promise.resolve(""));
+const mockVote = jest
+  .fn()
+  .mockImplementationOnce(() => Promise.resolve("thumbs up"));
 jest.mock("axios-hooks", () => () => [
-  { data: { results: [{ url: "some.jpg" }] } },
+  { data: { results: [{ src: "" }] } },
   mockVote
 ]);
 
@@ -20,8 +17,16 @@ describe("Vote", () => {
   });
   it("displays current image on page", async () => {
     const { getByTestId } = render(<Vote />);
-    const image = getByTestId("baby-image");
-    expect(image).toHaveAttribute("src");
-    expect(image.getAttribute("src")).toEqual("some.jpg");
+    const voteInput = getByTestId("vote-input");
+    Simulate.change(voteInput, { target: { value: "jhandy4" } } as any);
+    const voteSubmit = getByTestId("vote-submit");
+    fireEvent.click(voteSubmit);
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toHaveBeenCalledWith({
+      data: "jhandy4",
+      headers: {
+        "Content-Type": "text/plain"
+      }
+    });
   });
 });
