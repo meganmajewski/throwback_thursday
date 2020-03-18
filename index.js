@@ -94,7 +94,7 @@ express()
     try {
       const client = await pool.connect();
       const result = await client.query(
-        "SELECT url  FROM test_table WHERE currentImage=true"
+        "select * from test_table, current_throwback where test_table.id = current_throwback.current_id order by current_throwback.id desc limit 1;"
       );
       const results = { results: result ? result.rows : null };
       res.json(results);
