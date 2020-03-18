@@ -8,7 +8,7 @@ export default function Vote() {
   document.body.classList.remove("gallery");
   document.body.classList.add("vote");
 
-  const [{ data, loading, error }, vote] = useAxios(
+  const [{ data, error }, vote] = useAxios(
     {
       url: "/vote",
       method: "post"

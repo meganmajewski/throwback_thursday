@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React from "react";
 import useAxios from "axios-hooks";
 import ErrorMessage from "./Error";
 export default function VoteImage() {

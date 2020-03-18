@@ -28,7 +28,7 @@ export default function Gallery() {
                   <span className="cdsid">{src.cdsid}</span>
                 </div>
               )}
-              <img src={src.url}></img>
+              <img src={src.url} alt="a baby submit by someone at labs"></img>
             </div>
           )
         );
