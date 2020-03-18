@@ -1,7 +1,7 @@
 @import "base.scss";
 .image-grid {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   .image {
     flex: 0 1 28%;
