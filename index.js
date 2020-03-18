@@ -59,8 +59,12 @@ express()
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
       const url = await firebaseutils.uploadToFirebase(req.file, firebase);
-      uploadToDb(url, req.body.cdsid);
-      res.send("Image uploaded");
+      if (url) {
+        await uploadToDb(url, req.body.cdsid);
+        res.send("Image uploaded");
+      } else {
+        throw "image url is undefined, cannot upload to database";
+      }
     } catch (e) {
       console.log(e);
       res.statusCode(500);

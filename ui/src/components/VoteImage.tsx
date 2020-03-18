@@ -8,12 +8,25 @@ export default function VoteImage() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-  return (
-    <img
-      className="image"
-      data-testid="baby-image"
-      src={data.results[0].url}
-      alt="throw back of the week"
-    ></img>
-  );
+  console.log(data);
+  if (data.results.length)
+    return (
+      <img
+        className="image"
+        data-testid="baby-image"
+        src={data.results[0].url}
+        alt="throw back of the week"
+      ></img>
+    );
+  else
+    return (
+      <div className="vote-image-error">
+        <p>
+          Oops!
+          <br />
+          <br /> Something happened while trying to get this week's throwback
+          picture.
+        </p>
+      </div>
+    );
 }
