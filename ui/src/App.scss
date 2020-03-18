@@ -17,9 +17,11 @@ body {
 }
 .gallery #main {
   background-image: url("./images/gallery.png");
+  background-size: cover;
 }
 .vote #main {
-  background-image: url("./images/vote.png");
+  background-image: url("./images/vote_small.png");
+  background-size: contain;
 }
 
 .content-container {

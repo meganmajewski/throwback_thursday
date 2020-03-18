@@ -34,5 +34,21 @@ module.exports = {
     );
     client.release();
     return { results: result ? result.rows : null };
+  },
+  vote: async (pool, body) => {
+    const client = await pool.connect();
+    //get current throwback id
+    const result = await client.query(
+      "SELECT current_id  FROM current_throwback order by id desc limit 1"
+    );
+    const current_id = result.rows[0].current_id;
+    await client.query(
+      "INSERT INTO votes(image_id, vote) values(" +
+        current_id +
+        ",'" +
+        body +
+        "')"
+    );
+    client.release();
   }
 };

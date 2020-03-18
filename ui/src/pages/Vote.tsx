@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from "react";
 import useAxios from "axios-hooks";
 import "../styles/vote.scss";
 import VoteImage from "../components/VoteImage";
+import ErrorMessage from "../components/Error";
 
 export default function Vote() {
   document.body.classList.remove("gallery");
@@ -29,12 +30,17 @@ export default function Vote() {
     console.log(cdsid);
   };
 
+  if (data) return <div className="success">Thanks for your submission!</div>;
+  if (error)
+    return <ErrorMessage message="Error submitting your vote"></ErrorMessage>;
   return (
     <div>
       <div className="form-container">
         <form onSubmit={submit}>
           <label>
             <h2>Vote on this week's throwback!</h2>
+            <p>Enter the cdsid of who you think is pictured below.</p>
+            <br />
           </label>
           <input
             name="cdsid"

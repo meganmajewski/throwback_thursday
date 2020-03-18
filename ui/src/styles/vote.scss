@@ -19,3 +19,12 @@ div {
   box-shadow: 10px 10px $text-gray;
   max-width: 400px;
 }
+
+.success {
+  width: 60%;
+  margin: auto;
+  font-size: 1.5rem;
+  background-color: $light-blue;
+  box-shadow: 4px 4px $yellow;
+  padding: 40px;
+}
