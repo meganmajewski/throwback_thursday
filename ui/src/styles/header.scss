@@ -30,7 +30,13 @@ ul {
     border-bottom: 5px solid #0073a3;
   }
 }
-li {
+.upload-link {
+  margin-top: -10px;
+  button {
+    cursor: pointer;
+  }
+}
+.nav-list li {
   font-size: 1.5rem;
   font-weight: bold;
   list-style-type: none;

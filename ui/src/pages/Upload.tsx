@@ -1,8 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, createRef } from "react";
 import useAxios from "axios-hooks";
 import ErrorMessage from "../components/Error";
 import "../styles/upload.scss";
 export default function Upload() {
+  const fileInput = createRef<HTMLInputElement>();
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
   const [cdsid, setCDSID] = useState<string>("");
   const [{ data, loading, error }, uploadImage] = useAxios(
@@ -50,18 +51,25 @@ export default function Upload() {
       <h1>Upload a picture</h1>
       <form data-testid="form" onSubmit={submit}>
         <div className="file-input-container">
+          <p> Choose a file</p>
           <input
+            ref={fileInput}
             data-testid="upload-image"
             onChange={getImageForUpload}
             type="file"
             required
             className="file-input-button"
           ></input>
-          <label className="file-input-label">Choose File</label>
+          <label
+            className="file-input-label"
+            onClick={() => fileInput.current?.click()}
+          >
+            Browse
+          </label>
           <br />
         </div>
         <div className="cdsid-input-container">
-          <label>Add your CDSID</label>
+          <label className="cdsid-label">Tell us who you are</label>
           <input
             data-testid="cdsid"
             required

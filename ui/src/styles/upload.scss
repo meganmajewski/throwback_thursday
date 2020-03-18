@@ -1,25 +1,55 @@
 @import "base.scss";
-.upload-content-container {
-  background-color: $background-blue;
-}
-.file-input-button {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
 
-.file-input-label {
-  font-size: 1.2rem;
-  display: inline-block;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  font-weight: 600;
-  background-color: $dark-blue;
-  cursor: pointer;
-  width: 220px;
-  height: 40px;
+#upload-modal {
+  box-shadow: 4px 4px $text-gray;
+  position: relative;
+  button {
+    background: none;
+    border: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $text-gray;
+    font-weight: 600;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  h1 {
+    @extend h2;
+  }
+}
+.upload-content-container {
+  margin: 50px;
+}
+.file-input-container {
+  margin-bottom: 30px;
+  .file-input-button {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .file-input-label {
+    font-size: 1.2rem;
+    display: inline-block;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 3px;
+    font-weight: 600;
+    background-color: $dark-blue;
+    cursor: pointer;
+    width: 220px;
+  }
+}
+.cdsid-input-container {
+  margin-bottom: 50px;
+  .cdsid-label {
+    display: block;
+    margin-bottom: 20px;
+  }
 }

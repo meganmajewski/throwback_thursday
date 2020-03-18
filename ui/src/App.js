@@ -4,8 +4,10 @@ import "./App.scss";
 import Header from "./components/Header";
 import Gallery from "./pages/Gallery";
 import Vote from "./pages/Vote";
+import Modal from "react-modal";
 import Upload from "./pages/Upload";
-
+// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+Modal.setAppElement("#root");
 function App() {
   return (
     <Router>
