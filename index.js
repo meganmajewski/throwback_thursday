@@ -45,9 +45,9 @@ express()
       const url = await firebaseutils.uploadToFirebase(req.file, firebase);
       if (url) {
         try {
-          await databaseutils.uploadToDb(url, req.body.cdsid);
+          await databaseutils.uploadToDb(url, req.body.cdsid, pool);
         } catch (e) {
-          throw "error uploading to database";
+          throw ("error uploading to database, ", e);
         }
         res.send("Image uploaded");
       } else {
@@ -61,36 +61,36 @@ express()
   })
   .get("/currentImage", async (_, res) => {
     try {
-      const client = await pool.connect();
-      const result = await client.query(
-        "select * from test_table, current_throwback where test_table.id = current_throwback.current_id order by current_throwback.id desc limit 1;"
-      );
-      const results = { results: result ? result.rows : null };
+      const results = await databaseutils.getCurrentImage(pool);
       res.json(results);
-      client.release();
     } catch (err) {
       console.log(err);
+      res.status(500);
       res.send("Error" + err);
     }
   })
   .post("/vote", textParser, async (req, res) => {
-    const client = await pool.connect();
-    //get current throwback id
-    const result = await client.query(
-      "SELECT current_id  FROM current_throwback"
-    );
-    const { current_id } = result.rows[0];
-    console.log(req.body);
-    //submit to db vote with that id
-    const vote = await client.query(
-      "INSERT INTO votes(image_id, vote) values(" +
-        current_id +
-        ",'" +
-        req.body +
-        "')"
-    );
-    client.release();
-    res.send("voted");
+    try {
+      const client = await pool.connect();
+      //get current throwback id
+      const result = await client.query(
+        "SELECT current_id  FROM current_throwback"
+      );
+      const { current_id } = result.rows[0];
+      console.log(req.body);
+      //submit to db vote with that id
+      const vote = await client.query(
+        "INSERT INTO votes(image_id, vote) values(" +
+          current_id +
+          ",'" +
+          req.body +
+          "')"
+      );
+      client.release();
+      res.send("voted");
+    } catch (e) {
+      console.log("error", e);
+    }
   })
   .get("/db", async (req, res) => {
     try {
