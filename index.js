@@ -8,6 +8,7 @@ const { Pool } = require("pg");
 const path = require("path");
 const bodyParser = require("body-parser");
 const firebaseutils = require("./firebase/firebaseutils");
+const databaseutils = require("./database/databaseutils");
 const textParser = bodyParser.text();
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
@@ -19,27 +20,10 @@ const pool = new Pool({
 
 firebase.initializeApp(firebaseutils.config());
 
-async function uploadToDb(url, cdsid) {
-  try {
-    const client = await pool.connect();
-    client.query(
-      "INSERT INTO test_table(url, cdsid) VALUES('" +
-        url +
-        "', '" +
-        cdsid +
-        "')",
-      (err, res) => {
-        console.log("error uploading to db ", err, res);
-      }
-    );
-  } catch (e) {
-    console.log("error uploading to postgres", e);
-  }
-}
 express()
   .use(cors())
   .use(express.static(path.join(__dirname, "ui/build/")))
-  .get("/", (req, res) =>
+  .get("/", (_, res) =>
     res.sendFile(path.join(__dirname, "ui/build", "index.html"))
   )
   .get("/allImages", async (_, res) => {
@@ -60,14 +44,18 @@ express()
     try {
       const url = await firebaseutils.uploadToFirebase(req.file, firebase);
       if (url) {
-        await uploadToDb(url, req.body.cdsid);
+        try {
+          await databaseutils.uploadToDb(url, req.body.cdsid);
+        } catch (e) {
+          throw "error uploading to database";
+        }
         res.send("Image uploaded");
       } else {
         throw "image url is undefined, cannot upload to database";
       }
     } catch (e) {
       console.log(e);
-      res.statusCode(500);
+      res.status(500);
       res.send("Failure");
     }
   })

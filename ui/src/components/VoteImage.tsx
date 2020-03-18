@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import useAxios from "axios-hooks";
+import ErrorMessage from "./Error";
 export default function VoteImage() {
   const [{ data, loading, error }] = useAxios({
     url: "/currentImage",
@@ -20,13 +21,9 @@ export default function VoteImage() {
     );
   else
     return (
-      <div className="vote-image-error">
-        <p>
-          Oops!
-          <br />
-          <br /> Something happened while trying to get this week's throwback
-          picture.
-        </p>
-      </div>
+      <ErrorMessage
+        message="Something happened while trying to get this week's throwback
+      picture."
+      />
     );
 }

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import useAxios from "axios-hooks";
+import ErrorMessage from "../components/Error";
 
 export default function Upload() {
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
@@ -40,7 +41,8 @@ export default function Upload() {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
+  if (error)
+    return <ErrorMessage message="There was an error uploading your image" />;
   if (data) return <p> Thanks for submitting your image!</p>;
 
   return (
