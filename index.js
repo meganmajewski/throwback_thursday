@@ -7,7 +7,7 @@ require("firebase/storage");
 const { Pool } = require("pg");
 const path = require("path");
 const bodyParser = require("body-parser");
-const firebaseconfig = require("./firebase/firebaseconfig");
+const firebaseutils = require("./firebase/firebaseutils");
 const textParser = bodyParser.text();
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
@@ -17,22 +17,8 @@ const pool = new Pool({
   ssl: true
 });
 
-firebase.initializeApp(firebaseconfig.config());
+firebase.initializeApp(firebaseutils.config());
 
-async function uploadToFirebase(file) {
-  try {
-    const storageRefForImage = firebase
-      .storage()
-      .ref()
-      .child("images/" + file.originalname);
-
-    let snapshot = await storageRefForImage.put(Uint8Array.from(file.buffer));
-    let url = await snapshot.ref.getDownloadURL();
-    return Promise.resolve(url);
-  } catch (e) {
-    Promise.reject("error uploading to firebase", e);
-  }
-}
 async function uploadToDb(url, cdsid) {
   try {
     const client = await pool.connect();
@@ -72,7 +58,7 @@ express()
   })
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
-      const url = await uploadToFirebase(req.file);
+      const url = await firebaseutils.uploadToFirebase(req.file, firebase);
       uploadToDb(url, req.body.cdsid);
       res.send("Image uploaded");
     } catch (e) {
