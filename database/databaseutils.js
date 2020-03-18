@@ -11,12 +11,12 @@ module.exports = {
             cdsid +
             "')",
           err => {
-            console.log("error uploading to db ", err);
+            throw ("error uploading to db \n", err);
           }
         );
       }
     } catch (e) {
-      throw ("error uploading to postgres", e);
+      throw ("error uploading to postgres.\n", e);
     }
   },
   getCurrentImage: async pool => {

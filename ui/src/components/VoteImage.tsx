@@ -8,8 +8,13 @@ export default function VoteImage() {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
-  console.log(data);
+  if (error)
+    return (
+      <ErrorMessage
+        message="Something happened while trying to get this week's throwback
+  picture."
+      />
+    );
   if (data.results.length)
     return (
       <img
