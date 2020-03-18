@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import useAxios from "axios-hooks";
 import ErrorMessage from "../components/Error";
-
+import "../styles/upload.scss";
 export default function Upload() {
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
   const [cdsid, setCDSID] = useState<string>("");
@@ -46,25 +46,32 @@ export default function Upload() {
   if (data) return <p> Thanks for submitting your image!</p>;
 
   return (
-    <div>
+    <div className="upload-content-container">
       <h1>Upload a picture</h1>
       <form data-testid="form" onSubmit={submit}>
-        <input
-          data-testid="upload-image"
-          onChange={getImageForUpload}
-          type="file"
-          required
-        ></input>
-        <label>Upload your best baby picture</label>
-        <label>Add your CDSID</label>
-        <input
-          data-testid="cdsid"
-          required
-          type="text"
-          name="cdsid"
-          maxLength={8}
-          onChange={({ target: { value } }) => setCDSID(value)}
-        ></input>
+        <div className="file-input-container">
+          <input
+            data-testid="upload-image"
+            onChange={getImageForUpload}
+            type="file"
+            required
+            className="file-input-button"
+          ></input>
+          <label className="file-input-label">Choose File</label>
+          <br />
+        </div>
+        <div className="cdsid-input-container">
+          <label>Add your CDSID</label>
+          <input
+            data-testid="cdsid"
+            required
+            type="text"
+            name="cdsid"
+            maxLength={8}
+            onChange={({ target: { value } }) => setCDSID(value)}
+          ></input>
+        </div>
+
         <input type="submit" alt="submit" value="Submit"></input>
       </form>
     </div>

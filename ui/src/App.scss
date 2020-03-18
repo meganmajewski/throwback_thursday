@@ -14,6 +14,7 @@ body {
   height: 100%;
   font-size: 1rem;
   color: $text-gray;
+  background-image: url("./images/gallery.png");
 }
 .gallery #main {
   background-image: url("./images/gallery.png");
@@ -21,7 +22,7 @@ body {
 }
 .vote #main {
   background-image: url("./images/vote_small.png");
-  background-size: contain;
+  background-size: 120%;
 }
 
 .content-container {

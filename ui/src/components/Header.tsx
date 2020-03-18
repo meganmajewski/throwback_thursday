@@ -22,7 +22,11 @@ export default function Header() {
         </li>
 
         <li>
-          <NavLink activeClassName="active" className="nav-link" to="/upload">
+          <NavLink
+            activeClassName="button-active"
+            className="nav-link button"
+            to="/upload"
+          >
             Upload
           </NavLink>
         </li>

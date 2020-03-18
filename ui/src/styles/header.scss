@@ -25,6 +25,7 @@ ul {
   text-transform: uppercase;
   color: $text-gray;
   padding-bottom: 8px;
+  margin: 15px;
   &.active {
     border-bottom: 5px solid #0073a3;
   }

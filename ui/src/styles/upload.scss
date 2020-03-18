@@ -1,0 +1,25 @@
+@import "base.scss";
+.upload-content-container {
+  background-color: $background-blue;
+}
+.file-input-button {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input-label {
+  font-size: 1.2rem;
+  display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: $dark-blue;
+  cursor: pointer;
+  width: 220px;
+  height: 40px;
+}
