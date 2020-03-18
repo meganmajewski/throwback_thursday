@@ -28,13 +28,12 @@ express()
   )
   .get("/allImages", async (_, res) => {
     try {
-      const client = await pool.connect();
-      const result = await client.query(
-        "SELECT * FROM test_table ORDER BY revealed, id ASC"
-      );
-      const results = { results: result ? result.rows : null };
-      res.json(results);
-      client.release();
+      const results = await databaseutils.allImages(pool);
+      if (results) {
+        res.json(results);
+      } else {
+        throw "no results";
+      }
     } catch (err) {
       console.log(err);
       res.send("Error" + err);

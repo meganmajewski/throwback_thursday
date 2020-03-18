@@ -1,6 +1,7 @@
 import React from "react";
 import useAxios from "axios-hooks";
 import "../styles/gallery.scss";
+import ErrorMessage from "../components/Error";
 
 export default function Gallery() {
   document.body.classList.remove("vote");
@@ -35,11 +36,18 @@ export default function Gallery() {
     );
   };
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
-  if (data)
+  if (error)
+    return (
+      <ErrorMessage message="Error getting images for the gallery"></ErrorMessage>
+    );
+  if (data.results)
     return (
       <div className="image-container">
         <div className="image-grid">{printAllImages()}</div>
       </div>
+    );
+  else
+    return (
+      <ErrorMessage message="Error getting images for the gallery"></ErrorMessage>
     );
 }

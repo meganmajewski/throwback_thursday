@@ -19,6 +19,14 @@ module.exports = {
       throw ("error uploading to postgres.\n", e);
     }
   },
+  allImages: async pool => {
+    const client = await pool.connect();
+    const result = await client.query(
+      "SELECT * FROM test_table ORDER BY revealed, id ASC"
+    );
+    client.release();
+    return { results: result ? result.rows : null };
+  },
   getCurrentImage: async pool => {
     const client = await pool.connect();
     const result = await client.query(
