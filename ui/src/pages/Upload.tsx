@@ -69,7 +69,9 @@ export default function Upload() {
           <br />
         </div>
         <div className="cdsid-input-container">
-          <label className="cdsid-label">Tell us who you are</label>
+          <label className="cdsid-label">
+            Enter your cdsid to tell us who you are
+          </label>
           <input
             data-testid="cdsid"
             required

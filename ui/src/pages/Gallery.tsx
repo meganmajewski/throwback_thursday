@@ -40,11 +40,15 @@ export default function Gallery() {
     return (
       <ErrorMessage message="Error getting images for the gallery"></ErrorMessage>
     );
-  if (data.results)
+  if (data.results.length > 0)
     return (
       <div className="image-container">
         <div className="image-grid">{printAllImages()}</div>
       </div>
+    );
+  if (data.results)
+    return (
+      <ErrorMessage message="There are no throwback pictures to see here yet!" />
     );
   else
     return (

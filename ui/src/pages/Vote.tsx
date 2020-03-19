@@ -48,7 +48,7 @@ export default function Vote() {
             className="vote-input"
             data-testid="vote-input"
             required
-            minLength={8}
+            maxLength={8}
             onChange={({ target: { value } }) => setCDSID(value)}
           ></input>
           <input data-testid="vote-submit" type="submit" value="Vote!"></input>
