@@ -8,6 +8,8 @@ const { Pool } = require("pg");
 const path = require("path");
 const firebaseutils = require("./firebase/firebaseutils");
 const databaseutils = require("./database/databaseutils");
+const bodyParser = require("body-parser");
+const textParser = bodyParser.text();
 const PORT = process.env.PORT || 5000;
 const pool = new Pool({
   connectionString:
@@ -64,7 +66,7 @@ express()
       res.send("Error" + err);
     }
   })
-  .post("/vote", async (req, res) => {
+  .post("/vote", textParser, async (req, res) => {
     try {
       await databaseutils.vote(pool, req.body);
       res.send("voted");
