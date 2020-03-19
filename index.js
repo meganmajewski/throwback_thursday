@@ -21,7 +21,7 @@ firebase.initializeApp(firebaseutils.config());
 express()
   .use(cors())
   .use(express.static(path.join(__dirname, "ui/build/")))
-  .get("/", (_, res) =>
+  .get("/*", (_, res) =>
     res.sendFile(path.join(__dirname, "ui/build", "index.html"))
   )
   .get("/allImages", async (_, res) => {
