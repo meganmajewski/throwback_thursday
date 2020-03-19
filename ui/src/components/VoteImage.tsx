@@ -15,7 +15,7 @@ export default function VoteImage() {
   picture."
       />
     );
-  if (data.results.length)
+  if (data.results && data.results.length)
     return (
       <img
         className="image"

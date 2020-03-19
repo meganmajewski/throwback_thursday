@@ -21,9 +21,6 @@ firebase.initializeApp(firebaseutils.config());
 express()
   .use(cors())
   .use(express.static(path.join(__dirname, "ui/build/")))
-  .get("/*", (_, res) =>
-    res.sendFile(path.join(__dirname, "ui/build", "index.html"))
-  )
   .get("/allImages", async (_, res) => {
     try {
       const results = await databaseutils.allImages(pool);
@@ -75,4 +72,10 @@ express()
       console.log("error", e);
     }
   })
+  .get("*", (_, res) =>
+    res.sendFile(path.join(__dirname, "ui/build", "index.html"))
+  )
+  .get("/", (_, res) =>
+    res.sendFile(path.join(__dirname, "ui/build", "index.html"))
+  )
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
