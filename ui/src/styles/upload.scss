@@ -1,5 +1,9 @@
 @import "base.scss";
-
+.black-background {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  inset: 0;
+}
 #upload-modal {
   box-shadow: 4px 4px $text-gray;
   position: relative;
@@ -7,21 +11,33 @@
     background: none;
     border: 0;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 25px;
+    right: 30px;
     color: $text-gray;
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: 2rem;
     cursor: pointer;
   }
   h1 {
     @extend h2;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .upload-submit {
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
   }
 }
 .upload-content-container {
-  margin: 50px;
+  margin: 10px;
+  text-align: left;
 }
 .file-input-container {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 30px;
   .file-input-button {
     width: 0.1px;
@@ -31,25 +47,40 @@
     position: absolute;
     z-index: -1;
   }
-
+  .text-input {
+    flex: 0 1 60%;
+    margin-right: 20px;
+  }
   .file-input-label {
     font-size: 1.2rem;
-    display: inline-block;
-    color: #fff;
+    color: $pink;
+    flex: 0 1 28%;
+    text-align: center;
     text-transform: uppercase;
     font-size: 1.5rem;
-    padding: 10px;
+    padding: 8px;
+    margin-right: 5px;
     border-radius: 3px;
     font-weight: 600;
-    background-color: $dark-blue;
+    background-color: white;
+    border: 3px solid $pink;
     cursor: pointer;
-    width: 220px;
   }
 }
 .cdsid-input-container {
-  margin-bottom: 50px;
-  .cdsid-label {
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  .upload-instructions {
+    max-width: 90%;
+    line-height: 1.5;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .cdsid-input {
+    margin-top: 15px;
     display: block;
-    margin-bottom: 20px;
+    width: 95%;
   }
 }

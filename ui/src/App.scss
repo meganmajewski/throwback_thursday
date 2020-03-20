@@ -1,6 +1,10 @@
 @import "./styles/base.scss";
 body {
   background-color: $background-blue;
+  color: $text-gray;
+  box-sizing: border-box;
+  font-family: "Monteserrat", sans-serif;
+  line-height: 1;
 }
 html,
 body {

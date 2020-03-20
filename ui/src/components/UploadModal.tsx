@@ -8,6 +8,7 @@ export function UploadModal(props: any) {
       <Modal
         id="upload-modal"
         isOpen={props.openModal}
+        overlayClassName="black-background"
         style={customStyles}
         contentLabel="Upload Modal"
       >
@@ -25,7 +26,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "#c5edea",
-    border: "0"
+    backgroundColor: "white",
+    border: "0",
+    maxWidth: "620px"
   }
 };

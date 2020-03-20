@@ -6,6 +6,7 @@ export default function Upload() {
   const fileInput = createRef<HTMLInputElement>();
   const [imageToUpload, setImageToUpload] = useState<File | null>(null);
   const [cdsid, setCDSID] = useState<string>("");
+  const [imgurl, setImageUrl] = useState<string>("");
   const [{ data, loading, error }, uploadImage] = useAxios(
     {
       url: "/uploadImage",
@@ -37,6 +38,7 @@ export default function Upload() {
     if (files && files?.length > 1) {
       console.log("too many images selected");
     } else if (files) {
+      setImageUrl(files[0].name);
       setImageToUpload(files[0]);
     }
   };
@@ -48,10 +50,27 @@ export default function Upload() {
 
   return (
     <div className="upload-content-container">
-      <h1>Upload a picture</h1>
+      <h1>Upload Image</h1>
       <form data-testid="form" onSubmit={submit}>
+        <div className="cdsid-input-container">
+          <label className="upload-instructions">
+            Enter your CDSID and upload your baby picture to be featured in a
+            future Throwback Thursday post!
+          </label>
+          <input
+            data-testid="cdsid"
+            required
+            type="text"
+            name="cdsid"
+            className="cdsid-input"
+            maxLength={8}
+            placeholder="Enter your CDSID"
+            onChange={({ target: { value } }) => setCDSID(value)}
+          ></input>
+        </div>
+        <p className="file-instructions"> Choose a file</p>
         <div className="file-input-container">
-          <p> Choose a file</p>
+          <p className="text-input">{imgurl}</p>
           <input
             ref={fileInput}
             data-testid="upload-image"
@@ -64,25 +83,17 @@ export default function Upload() {
             className="file-input-label"
             onClick={() => fileInput.current?.click()}
           >
-            Browse
+            Choose File
           </label>
           <br />
         </div>
-        <div className="cdsid-input-container">
-          <label className="cdsid-label">
-            Enter your cdsid to tell us who you are
-          </label>
-          <input
-            data-testid="cdsid"
-            required
-            type="text"
-            name="cdsid"
-            maxLength={8}
-            onChange={({ target: { value } }) => setCDSID(value)}
-          ></input>
-        </div>
 
-        <input type="submit" alt="submit" value="Submit"></input>
+        <input
+          className="upload-submit"
+          type="submit"
+          alt="submit"
+          value="Submit"
+        ></input>
       </form>
     </div>
   );
