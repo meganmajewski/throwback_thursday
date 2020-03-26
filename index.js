@@ -74,6 +74,16 @@ express()
       console.log("error", e);
     }
   })
+  .get("/topVotes", async (_, res) => {
+    try {
+      const results = await databaseutils.topVotes(pool);
+      res.json(results);
+    } catch (error) {
+      console.log(err);
+      res.status(500);
+      res.send(error);
+    }
+  })
   .get("*", (_, res) =>
     res.sendFile(path.join(__dirname, "ui/build", "index.html"))
   )

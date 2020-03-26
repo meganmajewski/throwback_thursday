@@ -46,5 +46,13 @@ module.exports = {
         "')"
     );
     client.release();
+  },
+  topVotes: async pool => {
+    const client = await pool.connect();
+    const result = await client.query(
+      "select vote, count(*) from votes group by 1 order by count desc"
+    );
+    client.release();
+    return { results: result ? result.rows : null };
   }
 };
