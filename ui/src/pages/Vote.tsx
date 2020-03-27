@@ -21,7 +21,7 @@ export default function Vote() {
     e.preventDefault();
     if (cdsid) {
       vote({
-        data: cdsid,
+        data: cdsid.toLowerCase(),
         headers: {
           "Content-Type": "text/plain"
         }
