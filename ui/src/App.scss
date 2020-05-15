@@ -16,6 +16,7 @@ body {
 #main {
   padding: 0 30px;
   height: 100%;
+  overflow: auto;
   font-size: 1rem;
   color: $text-gray;
   background-image: url("./images/gallery.png");
