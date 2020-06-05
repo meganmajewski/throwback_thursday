@@ -15,7 +15,7 @@ module.exports = {
       throw "error uploading to postgres";
     }
   },
-  allImages: async pool => {
+  allRevealedImages: async (pool) => {
     const client = await pool.connect();
     const result = await client.query(
       "SELECT * FROM test_table WHERE revealed=true ORDER BY revealed, id ASC "
@@ -23,7 +23,7 @@ module.exports = {
     client.release();
     return { results: result ? result.rows : null };
   },
-  getCurrentImage: async pool => {
+  getCurrentImage: async (pool) => {
     const client = await pool.connect();
     const result = await client.query(
       "select * from test_table, current_throwback where test_table.id = current_throwback.current_id order by current_throwback.id desc limit 1;"
@@ -47,12 +47,12 @@ module.exports = {
     );
     client.release();
   },
-  topVotes: async pool => {
+  topVotes: async (pool) => {
     const client = await pool.connect();
     const result = await client.query(
       "select vote, count(*) from votes group by 1 order by count desc"
     );
     client.release();
     return { results: result ? result.rows : null };
-  }
+  },
 };

@@ -19,16 +19,47 @@
   }
   .cdsid-container {
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.65);
     position: absolute;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.45);
+    }
   }
   .cdsid {
     color: white;
     font-size: 3rem;
     font-family: "Hemondalisa";
+  }
+}
+#image-modal {
+  .image-modal-close {
+    position: absolute;
+    top: -25px;
+    right: -60px;
+    padding: 0;
+    background-color: transparent;
+    font-size: 2.5rem;
+    color: white;
+    border: 0;
+    outline: 0;
+  }
+  .image-modal-cdsid {
+    border-radius: 4px;
+    position: relative;
+    padding: 10px 40px;
+    background: white;
+    box-shadow: 10px 10px $pink;
+    margin-top: 10px;
+    color: $text-gray;
+    font-size: 3rem;
+    font-family: "Hemondalisa";
+  }
+  .image-modal-image {
+    box-shadow: 30px 30px white;
   }
 }

@@ -15,7 +15,9 @@ const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
     "postgres://urhjxxuoesyhas:d6e8432d46daae1ac134b13305c03a6983bd412a488b0cd3b4de4c86a6af4ca6@ec2-34-192-30-15.compute-1.amazonaws.com:5432/d59ff6vdh8e19b",
-  ssl: true
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 firebase.initializeApp(firebaseutils.config());
@@ -23,9 +25,9 @@ firebase.initializeApp(firebaseutils.config());
 express()
   .use(cors())
   .use(express.static(path.join(__dirname, "ui/build/")))
-  .get("/allImages", async (_, res) => {
+  .get("/allRevealedImages", async (_, res) => {
     try {
-      const results = await databaseutils.allImages(pool);
+      const results = await databaseutils.allRevealedImages(pool);
       if (results) {
         res.json(results);
       } else {

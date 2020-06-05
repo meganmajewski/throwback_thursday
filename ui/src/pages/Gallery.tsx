@@ -2,14 +2,26 @@ import React from "react";
 import useAxios from "axios-hooks";
 import "../styles/gallery.scss";
 import ErrorMessage from "../components/Error";
+import { LightBox } from "../components/LightBox";
 
 export default function Gallery() {
   document.body.classList.remove("vote");
   document.body.classList.add("gallery");
   const [{ data, loading, error }] = useAxios({
-    url: "/allImages",
-    method: "get"
+    url: "/allRevealedImages",
+    method: "get",
   });
+  const [modalInfo, setIsOpen] = React.useState({
+    open: false,
+    src: "",
+    cdsid: "",
+  });
+  function openModal(src: string, cdsid: string) {
+    setIsOpen({ open: true, src, cdsid });
+  }
+  function closeModal() {
+    setIsOpen({ open: false, src: "", cdsid: "" });
+  }
 
   const printAllImages = () => {
     return data.results.map(
@@ -20,8 +32,11 @@ export default function Gallery() {
         return (
           src.url && (
             <div
-              className={src.revealed ? "image revealed" : "image not-revealed"}
+              className="image revealed"
               key={index}
+              onClick={() => {
+                openModal(src.url, src.cdsid);
+              }}
             >
               {src.revealed && (
                 <div className="cdsid-container">
@@ -44,6 +59,11 @@ export default function Gallery() {
     return (
       <div className="image-container">
         <div className="image-grid">{printAllImages()}</div>
+        <LightBox
+          openModal={modalInfo.open}
+          closeModal={closeModal}
+          {...modalInfo}
+        />
       </div>
     );
   if (data.results)
