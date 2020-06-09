@@ -2,13 +2,22 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header";
-import Gallery from "./pages/Gallery";
+import MobileGallery from "./pages/MobileGallery";
 import Vote from "./pages/Vote";
 import Modal from "react-modal";
 import Upload from "./pages/Upload";
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+import DesktopGallery from "./pages/DesktopGallery";
 Modal.setAppElement("#root");
 function App() {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const breakpoint = 780;
+
+  React.useEffect(() => {
+    const handleWindowResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
   return (
     <Router>
       <Header />
@@ -16,7 +25,7 @@ function App() {
         <div className="content-container">
           <Switch>
             <Route path="/gallery">
-              <Gallery />
+              {width < breakpoint ? <MobileGallery /> : <DesktopGallery />}
             </Route>
             <Route path="/upload">
               <Upload />

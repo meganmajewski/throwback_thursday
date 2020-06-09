@@ -4,7 +4,7 @@ import "../styles/gallery.scss";
 import ErrorMessage from "../components/Error";
 import { LightBox } from "../components/LightBox";
 
-export default function Gallery() {
+export default function DesktopGallery() {
   document.body.classList.remove("vote");
   document.body.classList.add("gallery");
   const [{ data, loading, error }] = useAxios({
@@ -32,17 +32,15 @@ export default function Gallery() {
         return (
           src.url && (
             <div
-              className="image revealed"
+              className="image"
               key={index}
               onClick={() => {
                 openModal(src.url, src.cdsid);
               }}
             >
-              {src.revealed && (
-                <div className="cdsid-container">
-                  <span className="cdsid">{src.cdsid}</span>
-                </div>
-              )}
+              <div className="cdsid-container">
+                <span className="cdsid">{src.cdsid}</span>
+              </div>
               <img src={src.url} alt="a baby submit by someone at labs"></img>
             </div>
           )

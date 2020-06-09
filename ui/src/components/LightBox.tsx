@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-import closeButton from "../images/close_24px.png";
 
 export function LightBox(props: any) {
   return (
@@ -20,6 +19,7 @@ export function LightBox(props: any) {
           className="image-modal-image"
           style={{ maxWidth: "570px" }}
           src={props.src}
+          alt="a baby image from someone at labs"
         />
       </Modal>
     </div>

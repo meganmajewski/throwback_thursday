@@ -1,65 +1,87 @@
 @import "base.scss";
+
 .image-grid {
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
+  justify-content: center;
+  @include tablet-up() {
+    justify-content: flex-start;
+  }
+  .image-wrapper {
+    margin-bottom: 60px;
+  }
   .image {
-    flex: 0 1 28%;
     margin-bottom: 5%;
     margin-left: 5%;
-    box-shadow: 10px 10px $text-gray;
+    position: relative;
+    @include drop-shadow($text-gray);
+    @include tablet-up() {
+      flex: 0 1 45%;
+    }
+    @include desktop-up() {
+      flex: 0 1 28%;
+    }
     img {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    &.revealed {
-      position: relative;
-    }
   }
   .cdsid-container {
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.65);
-    position: absolute;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.45);
+    background-color: white;
+    width: 60%;
+    margin: auto;
+    @include drop-shadow($text-gray);
+    @include tablet-up() {
+      display: flex;
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.65);
+      position: absolute;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.45);
+      }
     }
   }
   .cdsid {
-    color: white;
-    font-size: 3rem;
-    font-family: "Hemondalisa";
-  }
-}
-#image-modal {
-  .image-modal-close {
-    position: absolute;
-    top: -25px;
-    right: -60px;
-    padding: 0;
-    background-color: transparent;
-    font-size: 2.5rem;
-    color: white;
-    border: 0;
-    outline: 0;
-  }
-  .image-modal-cdsid {
-    border-radius: 4px;
-    position: relative;
-    padding: 10px 40px;
-    background: white;
-    box-shadow: 10px 10px $pink;
-    margin-top: 10px;
     color: $text-gray;
     font-size: 3rem;
     font-family: "Hemondalisa";
+    @include tablet-up() {
+      color: white;
+    }
   }
-  .image-modal-image {
-    box-shadow: 30px 30px white;
+}
+@include desktop-up() {
+  #image-modal {
+    .image-modal-close {
+      position: absolute;
+      top: -25px;
+      right: -60px;
+      padding: 0;
+      background-color: transparent;
+      font-size: 2.5rem;
+      color: white;
+      border: 0;
+      outline: 0;
+    }
+    .image-modal-cdsid {
+      border-radius: 4px;
+      position: relative;
+      padding: 10px 40px;
+      background: white;
+      @include drop-shadow($pink);
+      margin-top: 10px;
+      color: $text-gray;
+      font-size: 3rem;
+      font-family: "Hemondalisa";
+    }
+    .image-modal-image {
+      box-shadow: 30px 30px white;
+    }
   }
 }
