@@ -15,9 +15,15 @@ header {
 
 ul {
   display: flex;
-  align-self: center;
-  justify-content: space-between;
-  flex: 0 1 300px;
+  flex-direction: column;
+  flex: 1 0 20%;
+  @include tablet-up() {
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 0 1 300px;
+  }
 }
 
 .nav-link {
@@ -25,9 +31,12 @@ ul {
   text-transform: uppercase;
   color: $text-gray;
   padding-bottom: 8px;
-  margin: 15px;
-  &.active {
-    border-bottom: 5px solid #0073a3;
+  margin: 0 0 30px 0;
+  @include tablet-up() {
+    margin: 15px;
+    &.active {
+      border-bottom: 5px solid #0073a3;
+    }
   }
 }
 .upload-link {
@@ -36,8 +45,19 @@ ul {
     cursor: pointer;
   }
 }
-.nav-list li {
-  font-size: 1.5rem;
-  font-weight: bold;
-  list-style-type: none;
+.nav-list {
+  padding: 25px;
+  li {
+    font-size: 1.5rem;
+    font-weight: bold;
+    list-style-type: none;
+    display: flex;
+    @include tablet-up {
+      display: inline-block;
+    }
+  }
+}
+
+.hamburger-icon {
+  max-width: 40px;
 }

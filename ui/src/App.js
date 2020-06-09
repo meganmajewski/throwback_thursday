@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
-import Header from "./components/Header";
+import DesktopHeader from "./components/DesktopHeader";
+import MobileHeader from "./components/MobileHeader";
 import MobileGallery from "./pages/MobileGallery";
 import Vote from "./pages/Vote";
 import Modal from "react-modal";
@@ -20,7 +21,7 @@ function App() {
   }, []);
   return (
     <Router>
-      <Header />
+      {width < breakpoint ? <MobileHeader /> : <DesktopHeader />}
       <div id="main">
         <div className="content-container">
           <Switch>
