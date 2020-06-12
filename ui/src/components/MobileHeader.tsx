@@ -18,7 +18,6 @@ export default function MobileHeader() {
     ) {
       return;
     }
-
     setOpenState(open);
   };
 
@@ -36,7 +35,7 @@ export default function MobileHeader() {
           />
         </Button>
         <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-          <HeaderLinks />
+          <HeaderLinks toggleDrawer={toggleDrawer} />
         </Drawer>
       </React.Fragment>
     </header>
