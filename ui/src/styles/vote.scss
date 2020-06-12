@@ -5,19 +5,32 @@ div {
 
 .form-container {
   background-color: $light-blue;
-  padding: 40px;
+  padding: 20px;
   margin-bottom: 50px;
+  @include tablet-up {
+    padding: 40px;
+  }
 
   h2 {
     margin: 0 0 30px 0;
   }
   .vote-input {
-    margin-right: 30px;
+    max-width: 90%;
+    margin-bottom: 20px;
+    @include tablet-up {
+      max-width: auto;
+      margin-right: 30px;
+      margin-bottom: auto;
+    }
   }
 }
 .image {
   box-shadow: 10px 10px $text-gray;
-  max-width: 400px;
+  max-width: 300px;
+  margin-bottom: 50px;
+  @include tablet-up {
+    max-width: 400px;
+  }
 }
 
 .success {

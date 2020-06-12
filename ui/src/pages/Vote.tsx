@@ -11,7 +11,7 @@ export default function Vote() {
   const [{ data, error }, vote] = useAxios(
     {
       url: "/vote",
-      method: "post"
+      method: "post",
     },
     { manual: true }
   );
@@ -23,8 +23,8 @@ export default function Vote() {
       vote({
         data: cdsid.toLowerCase(),
         headers: {
-          "Content-Type": "text/plain"
-        }
+          "Content-Type": "text/plain",
+        },
       });
     }
     console.log(cdsid);
