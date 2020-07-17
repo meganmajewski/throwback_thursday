@@ -55,14 +55,26 @@ export default function DesktopGallery() {
     );
   if (data.results.length > 0)
     return (
-      <div className="image-container">
-        <div className="image-grid">{printAllImages()}</div>
-        <LightBox
-          openModal={modalInfo.open}
-          closeModal={closeModal}
-          {...modalInfo}
-        />
-      </div>
+      <>
+        <div className="last-week-container">
+          <div className="flex">
+            <img className="last-week-image" src={data.results[0].url} />
+            <div className="column">
+              <h2>Last Week's throwback:</h2>
+              <p className="cdsid">{data.results[0].cdsid}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="image-container">
+          <div className="image-grid">{printAllImages()}</div>
+          <LightBox
+            openModal={modalInfo.open}
+            closeModal={closeModal}
+            {...modalInfo}
+          />
+        </div>
+      </>
     );
   if (data.results)
     return (

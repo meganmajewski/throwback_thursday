@@ -37,8 +37,8 @@ export default function Vote() {
     <div>
       <div className="form-container">
         <form onSubmit={submit}>
-          <label>
-            <h2>Vote on this week's throwback!</h2>
+          <h2>Vote on this week's throwback!</h2>
+          <label htmlFor="cdsid">
             <p>Enter the cdsid of who you think is pictured below.</p>
             <br />
           </label>

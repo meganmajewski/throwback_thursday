@@ -18,7 +18,7 @@ module.exports = {
   allRevealedImages: async (pool) => {
     const client = await pool.connect();
     const result = await client.query(
-      "SELECT * FROM test_table WHERE revealed=true ORDER BY revealed, id ASC "
+      "SELECT * FROM test_table WHERE revealed=true ORDER BY revealed, id DESC "
     );
     client.release();
     return { results: result ? result.rows : null };

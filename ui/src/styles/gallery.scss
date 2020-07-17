@@ -1,5 +1,32 @@
 @import "base.scss";
 
+.last-week-container {
+  background-color: $light-blue;
+  padding: 20px;
+  margin-bottom: 50px;
+  .flex {
+    max-width: 60%;
+    margin: auto;
+    display: flex;
+    .last-week-image {
+      flex: 0 1 225px;
+    }
+    .column {
+      justify-content: left;
+      padding-left: 50px;
+      p {
+        text-align: left;
+      }
+    }
+  }
+}
+
+.cdsid {
+  color: $text-gray;
+  font-size: 3rem;
+  font-family: "Hemondalisa";
+}
+
 .image-grid {
   display: flex;
   flex-wrap: wrap;
@@ -48,9 +75,6 @@
     }
   }
   .cdsid {
-    color: $text-gray;
-    font-size: 3rem;
-    font-family: "Hemondalisa";
     @include tablet-up() {
       color: white;
     }
