@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxios from "axios-hooks";
 import "../styles/gallery.scss";
 import ErrorMessage from "../components/Error";
 import { LightBox } from "../components/LightBox";
+import LastWeeksThrowback from "../components/LastWeeksThrowback";
 
 export default function DesktopGallery() {
   document.body.classList.remove("vote");
   document.body.classList.add("gallery");
+  const [vpnError, setVPNError] = useState<boolean>(false);
   const [{ data, loading, error }] = useAxios({
     url: "/allRevealedImages",
     method: "get",
@@ -16,6 +18,10 @@ export default function DesktopGallery() {
     src: "",
     cdsid: "",
   });
+  if (vpnError)
+    return (
+      <ErrorMessage message="Seems like you might be on VPN! Please disconnect so you can see this week's image." />
+    );
   function openModal(src: string, cdsid: string) {
     setIsOpen({ open: true, src, cdsid });
   }
@@ -41,7 +47,11 @@ export default function DesktopGallery() {
               <div className="cdsid-container">
                 <span className="cdsid">{src.cdsid}</span>
               </div>
-              <img src={src.url} alt="a baby submit by someone at labs"></img>
+              <img
+                onError={() => setVPNError(true)}
+                src={src.url}
+                alt="a baby submit by someone at labs"
+              ></img>
             </div>
           )
         );
@@ -56,15 +66,11 @@ export default function DesktopGallery() {
   if (data.results.length > 0)
     return (
       <>
-        <div className="last-week-container">
-          <div className="flex">
-            <img className="last-week-image" src={data.results[0].url} />
-            <div className="column">
-              <h2>Last Week's throwback:</h2>
-              <p className="cdsid">{data.results[0].cdsid}</p>
-            </div>
-          </div>
-        </div>
+        <LastWeeksThrowback
+          cdsid={data.results[0].cdsid}
+          id={data.results[0].id}
+          url={data.results[0].url}
+        />
 
         <div className="image-container">
           <div className="image-grid">{printAllImages()}</div>
