@@ -27,7 +27,6 @@ export default function Vote() {
         },
       });
     }
-    console.log(cdsid);
   };
 
   if (data) return <div className="success">Thanks for your submission!</div>;
