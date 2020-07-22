@@ -39,6 +39,15 @@ express()
       res.send("Error" + err);
     }
   })
+  .get("/voteResultsByImageid", async (req, res) => {
+    const results = await databaseutils.getVotesByImageid(
+      req.query.image_id,
+      pool
+    );
+    if (results) {
+      res.json(results);
+    }
+  })
   .post("/uploadImage", upload().single("image"), async (req, res) => {
     try {
       const url = await firebaseutils.uploadToFirebase(req.file, firebase);

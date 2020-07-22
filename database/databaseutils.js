@@ -14,6 +14,23 @@ module.exports = {
     } catch (e) {
       throw "error uploading to postgres";
     }
+    client.release();
+  },
+  getVotesByImageid: async (image_id, pool) => {
+    try {
+      const client = await pool.connect();
+      if (image_id) {
+        const result = await client.query(
+          "select vote, count(*) from votes WHERE image_id=" +
+            image_id +
+            " group by 1 order by count desc"
+        );
+        client.release();
+        return { results: result ? result.rows : null };
+      }
+    } catch (e) {
+      console.log("error", e);
+    }
   },
   allRevealedImages: async (pool) => {
     const client = await pool.connect();
