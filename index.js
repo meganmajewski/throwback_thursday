@@ -40,12 +40,19 @@ express()
     }
   })
   .get("/voteResultsByImageid", async (req, res) => {
-    const results = await databaseutils.getVotesByImageid(
-      req.query.image_id,
-      pool
-    );
-    if (results) {
-      res.json(results);
+    try {
+      const results = await databaseutils.getVotesByImageid(
+        req.query.image_id,
+        pool
+      );
+      if (results) {
+        res.json(results);
+      } else {
+        throw "no results for votes";
+      }
+    } catch (err) {
+      res.status(500);
+      res.send("Error: " + err);
     }
   })
   .post("/uploadImage", upload().single("image"), async (req, res) => {
