@@ -26,8 +26,8 @@ input[type="text"],
 }
 
 input[type="submit"],
-.button,
 .button {
+  cursor: pointer;
   border: none;
   outline: none;
   border-radius: 3px;
