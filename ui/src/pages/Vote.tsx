@@ -3,6 +3,7 @@ import useAxios from "axios-hooks";
 import "../styles/vote.scss";
 import VoteImage from "../components/VoteImage";
 import ErrorMessage from "../components/Error";
+import CDSIDSuggestionInput from "../components/CDSIDSuggestion";
 
 export default function Vote() {
   document.body.classList.remove("gallery");
@@ -50,6 +51,7 @@ export default function Vote() {
             maxLength={8}
             onChange={({ target: { value } }) => setCDSID(value)}
           ></input>
+          <CDSIDSuggestionInput callback={setCDSID} />
           <input data-testid="vote-submit" type="submit" value="Vote!"></input>
         </form>
       </div>

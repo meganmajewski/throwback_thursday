@@ -12,12 +12,14 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "@types/react-autosuggest": "^9.3.14",
     "cors": "^2.8.5",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "firebase": "^7.15.0",
     "multer": "^1.4.2",
     "pg": "8.2.1",
+    "react-autosuggest": "^10.0.2",
     "xhr2": "^0.2.0",
     "xmlhttprequest": "^1.8.0"
   },
