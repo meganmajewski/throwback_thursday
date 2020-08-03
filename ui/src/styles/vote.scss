@@ -23,6 +23,10 @@ div {
       margin-bottom: auto;
     }
   }
+  .suggestion-container {
+    display: flex;
+    justify-content: center;
+  }
 }
 .image {
   box-shadow: 10px 10px $text-gray;

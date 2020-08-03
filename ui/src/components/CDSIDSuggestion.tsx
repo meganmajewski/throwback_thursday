@@ -2,25 +2,32 @@ import React from "react";
 import { useState } from "react";
 import AutoSuggest from "react-autosuggest";
 import { people } from "../data/people";
-import { callbackify } from "util";
+import "../styles/autosuggest.scss";
 
-const lowerCasedCompanies = people.map(({ first, last }) => {
-  return first.toLowerCase().concat(" ", last.toLowerCase());
-});
+interface Suggestion {
+  name: string;
+  cdsid: string;
+}
+
+const peopleFirstAndLastName: Suggestion[] = people.map(
+  ({ first, last, cdsid }) => {
+    return { name: first.toLowerCase().concat(" ", last.toLowerCase()), cdsid };
+  }
+);
 
 export default function CDSIDSuggestion(props: {
   callback: (value: string) => void;
 }) {
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
-  function getSuggestions(value: string): string[] {
-    return lowerCasedCompanies.filter((language) =>
-      language.startsWith(value.trim().toLowerCase())
+  function getSuggestions(value: string): Suggestion[] {
+    return peopleFirstAndLastName.filter(({ name }) =>
+      name.startsWith(value.trim().toLowerCase())
     );
   }
   return (
-    <div>
+    <>
       <AutoSuggest
         suggestions={suggestions}
         onSuggestionsClearRequested={() => setSuggestions([])}
@@ -28,21 +35,21 @@ export default function CDSIDSuggestion(props: {
           setValue(value);
           setSuggestions(getSuggestions(value));
         }}
-        onSuggestionSelected={(_, { suggestionValue }) => {
-          console.log("Selected: " + suggestionValue);
-          props.callback(suggestionValue);
+        onSuggestionSelected={(e, suggestionValue) => {
+          props.callback(suggestionValue.suggestion.cdsid);
         }}
-        getSuggestionValue={(suggestion) => suggestion}
-        renderSuggestion={(suggestion) => <span>{suggestion}</span>}
+        getSuggestionValue={(suggestion) => suggestion.name}
+        renderSuggestion={(suggestion) => <span>{suggestion.name}</span>}
         inputProps={{
-          placeholder: "Type 'c'",
+          className: "vote-input",
+          placeholder: "Start typing a name",
           value: value,
-          onChange: (_, { newValue, method }) => {
+          onChange: (_, { newValue }) => {
             setValue(newValue);
           },
         }}
         highlightFirstSuggestion={true}
       />
-    </div>
+    </>
   );
 }

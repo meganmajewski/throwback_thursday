@@ -39,20 +39,26 @@ export default function Vote() {
         <form onSubmit={submit}>
           <h2>Vote on this week's throwback!</h2>
           <label htmlFor="cdsid">
-            <p>Enter the cdsid of who you think is pictured below.</p>
+            <p>Enter the name of who you think is pictured below.</p>
             <br />
           </label>
-          <input
+          {/* <input
             name="cdsid"
             type="text"
             className="vote-input"
-            data-testid="vote-input"
+            
             required
             maxLength={8}
             onChange={({ target: { value } }) => setCDSID(value)}
-          ></input>
-          <CDSIDSuggestionInput callback={setCDSID} />
-          <input data-testid="vote-submit" type="submit" value="Vote!"></input>
+          ></input> */}
+          <div className="suggestion-container">
+            <CDSIDSuggestionInput callback={setCDSID} />
+            <input
+              data-testid="vote-submit"
+              type="submit"
+              value="Vote!"
+            ></input>
+          </div>
         </form>
       </div>
       <VoteImage></VoteImage>
