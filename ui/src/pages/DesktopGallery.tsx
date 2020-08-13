@@ -67,9 +67,9 @@ export default function DesktopGallery() {
     return (
       <>
         <LastWeeksThrowback
-          cdsid={data.results[4].cdsid}
-          id={data.results[4].id}
-          url={data.results[4].url}
+          cdsid={data.results[0].cdsid}
+          id={data.results[0].id}
+          url={data.results[0].url}
         />
 
         <div className="image-container">
